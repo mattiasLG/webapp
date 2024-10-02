@@ -1,0 +1,43 @@
+services:
+  webapp:
+    image: mattiaslg/webapp:latest
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - MYSQL_URL=mysql://user:password@database:3306/animals
+    depends_on:
+      - database
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://database:3306"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  test:
+    image: mattiaslg/webapp:latest
+    environment:
+      - API_URL=http://webapp:3000
+    depends_on:
+      - webapp
+    command: yarn test 
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+
+  database:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'rootPass'
+      MYSQL_DATABASE: 'animals'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+    volumes:
+      - dockerhub-data:/var/lib/mysql 
+
+volumes:
+  dockerhub-data:

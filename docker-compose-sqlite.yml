@@ -1,0 +1,10 @@
+services:
+  webapp:
+    image: webapp
+    ports:
+      - "3000:3000"
+    volumes:
+      - animals-data:/database/
+
+volumes:
+  animals-data:
