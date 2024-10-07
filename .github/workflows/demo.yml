@@ -10,9 +10,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: yarn install
-      - run: yarn lint
+      - name: Install yarn
+        run: yarn install
+      - name: linting
+        run: yarn lint
