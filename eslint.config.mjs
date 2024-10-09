@@ -1,50 +1,50 @@
 import globals from 'globals';
 import path from 'node:path';
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import { fileURLToPath } from 'node:url';
+import js from '@eslint/js';
+import { FlatCompat } from '@eslint/eslintrc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
 });
 
-export default [...compat.extends("eslint:recommended"), {
-    languageOptions: {
-        globals: {
-            ...globals.node,
-            ...globals.mocha,
-        },
-
-        ecmaVersion: 12,
-        sourceType: "module",
+export default [...compat.extends('eslint:recommended'), {
+  languageOptions: {
+    globals: {
+      ...globals.node,
+      ...globals.mocha,
     },
 
-    rules: {
-        indent: ["error", 2, {
-            SwitchCase: 1,
-        }],
+    ecmaVersion: 12,
+    sourceType: 'module',
+  },
 
-        "linebreak-style": ["error", "unix"],
-        quotes: ["error", "single"],
-        semi: ["error", "always"],
-        "comma-dangle": ["error", "always-multiline"],
-        "no-tabs": ["error"],
+  rules: {
+    indent: ['error', 2, {
+      SwitchCase: 1,
+    }],
 
-        "max-len": ["error", {
-            code: 120,
-            tabWidth: 2,
-        }],
+    'linebreak-style': ['error', 'unix'],
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
+    'comma-dangle': ['error', 'always-multiline'],
+    'no-tabs': ['error'],
 
-        "arrow-parens": ["error", "always"],
+    'max-len': ['error', {
+      code: 120,
+      tabWidth: 2,
+    }],
 
-        "brace-style": ["error", "1tbs", {
-            allowSingleLine: false,
-        }],
+    'arrow-parens': ['error', 'always'],
 
-        "no-inner-declarations": "off",
-    },
+    'brace-style': ['error', '1tbs', {
+      allowSingleLine: false,
+    }],
+
+    'no-inner-declarations': 'off',
+  },
 }];
