@@ -17,6 +17,8 @@ jobs:
         run: yarn install
       - name: linting
         run: yarn lint
+      - name: Testing
+        run: yarn test
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -27,7 +29,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: mattiaslg/webapp:latest
