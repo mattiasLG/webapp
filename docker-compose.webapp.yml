@@ -19,7 +19,8 @@ services:
     environment:
       - API_URL=http://webapp:3000
     depends_on:
-      - webapp
+      database:
+        condition: service_healthy
     command: yarn test 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
